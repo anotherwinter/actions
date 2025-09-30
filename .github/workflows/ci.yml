@@ -43,7 +43,7 @@ jobs:
     name: Build react app after tests
     needs: test
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event.pull_request.merged == true && matrix.node-version == 18 }}
 
     steps:
       - name: Checkout repository
@@ -52,7 +52,7 @@ jobs:
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install dependencies
@@ -60,6 +60,10 @@ jobs:
 
       - name: Build react app
         run: npm run build
+
+      - name: Run react app tests
+        working-directory: ./test-app
+        run: npm test
         
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -71,7 +75,7 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.node-version == 18 }}
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
