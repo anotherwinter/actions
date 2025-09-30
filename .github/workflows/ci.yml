@@ -18,13 +18,8 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
-
-      - name: Run tests (single-thread for Node 16)
-        if: ${{ startsWith(matrix.node-version, '16') }}
-        run: npm test -- --runInBand
         
-      - name: Use Node.js (not ${{ matrix.node-version }})
-        if: ${{ !startsWith(matrix.node-version, '16') }}
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
@@ -34,7 +29,12 @@ jobs:
         run: npm install
         
       - name: Run tests
+        if: ${{ !startsWith(matrix.node-version, '16') }}
         run: npm test
+
+      - name: Run tests (single-thread for Node 16)
+        if: ${{ startsWith(matrix.node-version, '16') }}
+        run: npm test -- --runInBand
         
       - name: Run ESLint
         run: npm run lint
