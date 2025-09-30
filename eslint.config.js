@@ -19,6 +19,14 @@ module.exports = [
         sourceType: 'module',
         ecmaFeatures: {
           jsx: true
+        },
+        babelOptions: {
+          presets: [
+            '@babel/preset-react'
+          ],
+          plugins: [
+            '@babel/plugin-syntax-jsx'
+          ]
         }
       },
       globals: {
@@ -37,10 +45,11 @@ module.exports = [
     },
     rules: {
       'semi': ['error', 'always'],
-      'quotes': ['error', 'single', { 'avoidEscape': true }],
+      'quotes': ['error', 'single', { avoidEscape: true }],
       'indent': ['error', 2],
-      'no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': 'off',
+
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
       'react-hooks/rules-of-hooks': 'error',
