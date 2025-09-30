@@ -12,9 +12,11 @@ module.exports = [
   {
     files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: 'module',
+      parser: require('@babel/eslint-parser'),
       parserOptions: {
+        requireConfigFile: false,
+        ecmaVersion: 2021,
+        sourceType: 'module',
         ecmaFeatures: {
           jsx: true
         }
