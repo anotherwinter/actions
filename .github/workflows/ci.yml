@@ -24,7 +24,7 @@ jobs:
         run: npm test -- --runInBand
         
       - name: Use Node.js (not ${{ matrix.node-version }})
-        if: not(startsWith(matrix.node-version, '16'))
+        if: !startsWith(matrix.node-version, '16')
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
