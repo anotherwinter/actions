@@ -70,13 +70,13 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./test-app/build
-          artifact_name: site-artifact
+          name: site-artifact
 
   deploy:
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
