@@ -10,10 +10,15 @@ module.exports = [
   },
 
   {
-    files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
+    files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      },
       globals: {
         require: 'readonly',
         module: 'readonly',
@@ -23,12 +28,26 @@ module.exports = [
         Buffer: 'readonly'
       }
     },
+    plugins: {
+      react: require('eslint-plugin-react'),
+      'react-hooks': require('eslint-plugin-react-hooks'),
+      'jsx-a11y': require('eslint-plugin-jsx-a11y')
+    },
     rules: {
       'semi': ['error', 'always'],
       'quotes': ['error', 'single', { 'avoidEscape': true }],
       'indent': ['error', 2],
       'no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
-      'no-console': 'off'
+      'no-console': 'off',
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn'
+    },
+    settings: {
+      react: {
+        version: 'detect'
+      }
     }
   }
 ];
