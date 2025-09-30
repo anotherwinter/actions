@@ -18,6 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         node-version: ['16', '18', '20']
+
+    if: ${{ github.event_name == 'pull_request' }}
     
     steps:
       - name: Checkout repository code
@@ -48,6 +50,8 @@ jobs:
     name: Build react app after tests
     needs: test
     runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
     steps:
       - name: Checkout repository
@@ -83,8 +87,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      
+
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
