@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --testMatch '**/tests/**/*.test.js'",
+    "test": "jest --testMatch '**/tests/**/*.test.{js,cjs}'",
     "lint": "eslint . --ext .js,.jsx --fix"
   },
   "repository": {
